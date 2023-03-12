@@ -4,13 +4,15 @@ public class KarnaughMap {
 
     private int NumR;
     private int NumC;
+
     private int[][] map;
+
     public KarnaughMap(int[][] map) {
         this.map = map;
         NumR = map.length;
         NumC = map[0].length;
     }
-    public int[][] Group(int[][] map) {
+    public int[][][] Group(int[][] map) {
         int numberof1 = Count1(map);
         int n = (int) (Math.log(numberof1) / Math.log(2)) + 2;
         int maxn = n;
@@ -32,7 +34,7 @@ public class KarnaughMap {
         while (n > 0) {
             for (int i = 0; i < NumR; i++) {
                 for (int j = 0; j < NumC; j++) {
-                    if (ifalone(group, NumR, NumC, maxn) && group[0][i][j] == 1) {
+                    if (ifalone(group, NumR, NumC, maxn) && map[i][j] == 1) {
                         //check 1X1
                         if (n == 1) {
                             group[numberofgroups][i][j] = 1;
@@ -42,28 +44,28 @@ public class KarnaughMap {
                         else if (n == 2) {
                             for (int k = 0; k < 4; k++) {
                                 if (k == 0) {
-                                    if (group[0][i][(j + 1) % 4] == 1) {
+                                    if (map[i][(j + 1) % 4] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][i][(j + 1) % 4] = 1;
                                         numberofgroups++;
                                         break;
                                     }
                                 } else if (k == 1) {
-                                    if (group[0][(i + 1) % 4][j] == 1) {
+                                    if (map[(i + 1) % 4][j] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i + 1) % 4][j] = 1;
                                         numberofgroups++;
                                     }
 
                                 } else if (k == 2) {
-                                    if (group[0][i][(j - 1) % 4] == 1) {
+                                    if (map[i][(j - 1) % 4] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][i][(j - 1) % 4] = 1;
                                         numberofgroups++;
                                     }
 
                                 } else {
-                                    if (group[0][(i - 1) % 4][j] == 1) {
+                                    if (map[(i - 1) % 4][j] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i - 1) % 4][j] = 1;
                                         numberofgroups++;
@@ -75,21 +77,21 @@ public class KarnaughMap {
                         else if (n == 3) {
                             for (int k = 0; k < 4; k++) {
                                 if (k == 0) {
-                                    if (group[0][(i + 1) % 4][j] == 1 && group[0][i][(j + 1) % 4] == 1 && group[0][(i + 1) % 4][(j + 1) % 4] == 1) {
+                                    if (map[(i + 1) % 4][j] == 1 && map[i][(j + 1) % 4] == 1 && map[(i + 1) % 4][(j + 1) % 4] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i + 1) % 4][j] = 1;
                                         group[numberofgroups][(i + 1) % 4][(j + 1) % 4] = 1;
                                         group[numberofgroups][i][(j + 1) % 4] = 1;
                                     }
                                 } else if (k == 1) {
-                                    if (group[0][(i + 1) % 4][j] == 1 && group[0][i][(j - 1) % 4] == 1 && group[0][(i + 1) % 4][(j - 1) % 4] == 1) {
+                                    if (map[(i + 1) % 4][j] == 1 && map[i][(j - 1) % 4] == 1 && map[(i + 1) % 4][(j - 1) % 4] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i + 1) % 4][j] = 1;
                                         group[numberofgroups][(i + 1) % 4][(j - 1) % 4] = 1;
                                         group[numberofgroups][i][(j - 1) % 4] = 1;
                                     }
                                 } else if (k == 2) {
-                                    if (group[0][(i - 1) % 4][j] == 1 && group[0][i][(j - 1) % 4] == 1 && group[0][(i - 1) % 4][(j - 1) % 4] == 1) {
+                                    if (map[(i - 1) % 4][j] == 1 && map[i][(j - 1) % 4] == 1 && map[(i - 1) % 4][(j - 1) % 4] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i - 1) % 4][j] = 1;
                                         group[numberofgroups][(i - 1) % 4][(j - 1) % 4] = 1;
@@ -97,7 +99,7 @@ public class KarnaughMap {
                                     }
 
                                 } else {
-                                    if (group[0][(i - 1) % 4][j] == 1 && group[0][i][(j + 1) % 4] == 1 && group[0][(i - 1) % 4][(j + 1) % 4] == 1) {
+                                    if (map[(i - 1) % 4][j] == 1 && map[i][(j + 1) % 4] == 1 && map[(i - 1) % 4][(j + 1) % 4] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i - 1) % 4][j] = 1;
                                         group[numberofgroups][(i - 1) % 4][(j + 1) % 4] = 1;
@@ -112,7 +114,7 @@ public class KarnaughMap {
                                 if (k == 0) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][i][(j + a) % 4] != 1) {
+                                        if (map[i][(j + a) % 4] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -126,7 +128,7 @@ public class KarnaughMap {
                                 } else if (k == 1) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][(i + a) % 4][j] != 1) {
+                                        if (map[(i + a) % 4][j] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -140,7 +142,7 @@ public class KarnaughMap {
                                 } else if (k == 2) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][i][(j - a) % 4] != 1) {
+                                        if (map[i][(j - a) % 4] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -154,7 +156,7 @@ public class KarnaughMap {
                                 } else {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][(i - a) % 4][j] != 1) {
+                                        if (map[(i - a) % 4][j] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -175,7 +177,7 @@ public class KarnaughMap {
                                 if (k == 0) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][i][(j + a) % 4] != 1 || group[0][(i + 1) % 4][(j + a) % 4] != 1) {
+                                        if (map[i][(j + a) % 4] != 1 || map[(i + 1) % 4][(j + a) % 4] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -190,7 +192,7 @@ public class KarnaughMap {
                                 } else if (k == 1) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][i][(j + a) % 4] != 1 || group[0][(i - 1) % 4][(j + a) % 4] != 1) {
+                                        if (map[i][(j + a) % 4] != 1 || map[(i - 1) % 4][(j + a) % 4] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -205,7 +207,7 @@ public class KarnaughMap {
                                 } else if (k == 2) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][(i + a) % 4][(j + 1) % 4] != 1 || group[0][(i + a) % 4][j] != 1) {
+                                        if (map[(i + a) % 4][(j + 1) % 4] != 1 || map[(i + a) % 4][j] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -220,7 +222,7 @@ public class KarnaughMap {
                                 } else if (k == 3) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][(i + a) % 4][(j - 1) % 4] != 1 || group[0][(i + a) % 4][j] != 1) {
+                                        if (map[(i + a) % 4][(j - 1) % 4] != 1 || map[(i + a) % 4][j] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -236,7 +238,7 @@ public class KarnaughMap {
                                 if (k == 4) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][i][(j - a) % 4] != 1 || group[0][(i + 1) % 4][(j - a) % 4] != 1) {
+                                        if (map[i][(j - a) % 4] != 1 || map[(i + 1) % 4][(j - a) % 4] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -251,7 +253,7 @@ public class KarnaughMap {
                                 } else if (k == 5) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][i][(j - a) % 4] != 1 || group[0][(i - 1) % 4][(j + a) % 4] != 1) {
+                                        if (map[i][(j - a) % 4] != 1 || map[(i - 1) % 4][(j + a) % 4] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -266,7 +268,7 @@ public class KarnaughMap {
                                 } else if (k == 6) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][(i - a) % 4][(j + 1) % 4] != 1 || group[0][(i - a) % 4][j] != 1) {
+                                        if (map[(i - a) % 4][(j + 1) % 4] != 1 || map[(i - a) % 4][j] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -281,7 +283,7 @@ public class KarnaughMap {
                                 } else if (k == 7) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (group[0][(i - a) % 4][(j - 1) % 4] != 1 || group[0][(i - a) % 4][j] != 1) {
+                                        if (map[(i - a) % 4][(j - 1) % 4] != 1 || map[(i - a) % 4][j] != 1) {
                                             flag = false;
                                         }
                                     }
@@ -302,7 +304,7 @@ public class KarnaughMap {
                             flag = true;
                             for (int a = 0; a < 4; a++) {
                                 for (int b = 0; b < 4; b++) {
-                                    if (group[0][a][b] == 0) {
+                                    if (map[a][b] == 0) {
                                         flag = false;
                                     }
                                 }
@@ -324,6 +326,7 @@ public class KarnaughMap {
 
 
         }
+        return group;
 
 
     }
@@ -348,6 +351,13 @@ public class KarnaughMap {
             }
         }
         return count;
+    }
+
+    public void simplify(){
+        int[][][] groups;
+        groups = Group(map);
+
+
     }
 
 
