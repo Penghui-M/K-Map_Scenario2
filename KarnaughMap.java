@@ -23,9 +23,7 @@ public class KarnaughMap {
             for (int j = 0; j < NumC; j++) {
                 for (int k = 0; k < 10; k++) {
                     group[k][i][j] = 0;
-                    if (k == 0) {
-                        group[k][i][j] = map[i][j];
-                    }
+
                 }
 
             }
@@ -44,30 +42,30 @@ public class KarnaughMap {
                         else if (n == 2) {
                             for (int k = 0; k < 4; k++) {
                                 if (k == 0) {
-                                    if (map[i][(j + 1) % 4] == 1) {
+                                    if (map[i][(j + 1) % NumC] == 1) {
                                         group[numberofgroups][i][j] = 1;
-                                        group[numberofgroups][i][(j + 1) % 4] = 1;
+                                        group[numberofgroups][i][(j + 1) % NumC] = 1;
                                         numberofgroups++;
                                         break;
                                     }
                                 } else if (k == 1) {
-                                    if (map[(i + 1) % 4][j] == 1) {
+                                    if (map[(i + 1) % NumR][j] == 1) {
                                         group[numberofgroups][i][j] = 1;
-                                        group[numberofgroups][(i + 1) % 4][j] = 1;
+                                        group[numberofgroups][(i + 1) % NumR][j] = 1;
                                         numberofgroups++;
                                     }
 
                                 } else if (k == 2) {
-                                    if (map[i][(j - 1) % 4] == 1) {
+                                    if (map[i][(NumC + j - 1) % NumC] == 1) {
                                         group[numberofgroups][i][j] = 1;
-                                        group[numberofgroups][i][(j - 1) % 4] = 1;
+                                        group[numberofgroups][i][(NumC + j - 1) % NumC] = 1;
                                         numberofgroups++;
                                     }
 
                                 } else {
-                                    if (map[(i - 1) % 4][j] == 1) {
+                                    if (map[(NumR + i - 1) % NumR][j] == 1) {
                                         group[numberofgroups][i][j] = 1;
-                                        group[numberofgroups][(i - 1) % 4][j] = 1;
+                                        group[numberofgroups][(NumR + i - 1) % NumR][j] = 1;
                                         numberofgroups++;
                                     }
                                 }
@@ -77,33 +75,33 @@ public class KarnaughMap {
                         else if (n == 3) {
                             for (int k = 0; k < 4; k++) {
                                 if (k == 0) {
-                                    if (map[(i + 1) % 4][j] == 1 && map[i][(j + 1) % 4] == 1 && map[(i + 1) % 4][(j + 1) % 4] == 1) {
+                                    if (map[(i + 1) % NumR][j] == 1 && map[i][(j + 1) % NumC] == 1 && map[(i + 1) % NumR][(j + 1) % NumC] == 1) {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i + 1) % 4][j] = 1;
                                         group[numberofgroups][(i + 1) % 4][(j + 1) % 4] = 1;
                                         group[numberofgroups][i][(j + 1) % 4] = 1;
                                     }
                                 } else if (k == 1) {
-                                    if (map[(i + 1) % 4][j] == 1 && map[i][(j - 1) % 4] == 1 && map[(i + 1) % 4][(j - 1) % 4] == 1) {
+                                    if (map[(i + 1) % NumR][j] == 1 && map[i][(NumC + j - 1) % NumC] == 1 && map[(i + 1) % NumR][(NumC + j - 1) % NumC] == 1) {
                                         group[numberofgroups][i][j] = 1;
-                                        group[numberofgroups][(i + 1) % 4][j] = 1;
-                                        group[numberofgroups][(i + 1) % 4][(j - 1) % 4] = 1;
-                                        group[numberofgroups][i][(j - 1) % 4] = 1;
+                                        group[numberofgroups][(i + 1) % NumR][j] = 1;
+                                        group[numberofgroups][(i + 1) % NumR][(NumC + j - 1) % NumC] = 1;
+                                        group[numberofgroups][i][(NumC + j - 1) % NumC] = 1;
                                     }
                                 } else if (k == 2) {
-                                    if (map[(i - 1) % 4][j] == 1 && map[i][(j - 1) % 4] == 1 && map[(i - 1) % 4][(j - 1) % 4] == 1) {
+                                    if (map[(NumR + i - 1) % NumR][j] == 1 && map[i][(NumC + j - 1) % NumC] == 1 && map[(NumR + i - 1) % NumR][(NumC + j - 1) % NumC] == 1) {
                                         group[numberofgroups][i][j] = 1;
-                                        group[numberofgroups][(i - 1) % 4][j] = 1;
-                                        group[numberofgroups][(i - 1) % 4][(j - 1) % 4] = 1;
-                                        group[numberofgroups][i][(j - 1) % 4] = 1;
+                                        group[numberofgroups][(NumR + i - 1) % NumR][j] = 1;
+                                        group[numberofgroups][(NumR + i - 1) % NumR][(NumC + j - 1) % NumC] = 1;
+                                        group[numberofgroups][i][(NumC + j - 1) % NumC] = 1;
                                     }
 
                                 } else {
-                                    if (map[(i - 1) % 4][j] == 1 && map[i][(j + 1) % 4] == 1 && map[(i - 1) % 4][(j + 1) % 4] == 1) {
+                                    if (map[(NumR + i - 1) % NumR][j] == 1 && map[i][(j + 1) % NumC] == 1 && map[(NumR + i - 1) % NumR][(j + 1) % NumC] == 1) {
                                         group[numberofgroups][i][j] = 1;
-                                        group[numberofgroups][(i - 1) % 4][j] = 1;
-                                        group[numberofgroups][(i - 1) % 4][(j + 1) % 4] = 1;
-                                        group[numberofgroups][i][(j + 1) % 4] = 1;
+                                        group[numberofgroups][(NumR + i - 1) % NumR][j] = 1;
+                                        group[numberofgroups][(NumR + i - 1) % NumR][(NumC + j + 1) % NumC] = 1;
+                                        group[numberofgroups][i][(j + 1) % NumC] = 1;
                                     }
                                 }
                             }
@@ -114,56 +112,56 @@ public class KarnaughMap {
                                 if (k == 0) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[i][(j + a) % 4] != 1) {
+                                        if (map[i][(j + a) % NumC] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][i][(j + a) % 4] = 1;
+                                            group[numberofgroups][i][(j + a) % NumC] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 1) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[(i + a) % 4][j] != 1) {
+                                        if (map[(i + a) % NumR][j] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][(i + a) % 4][j] = 1;
+                                            group[numberofgroups][(i + a) % NumR][j] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 2) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[i][(j - a) % 4] != 1) {
+                                        if (map[i][(NumC + j - a) % NumC] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][i][(j - a) % 4] = 1;
+                                            group[numberofgroups][i][(NumC + j - a) % NumC] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[(i - a) % 4][j] != 1) {
+                                        if (map[(NumR + i - a) % NumR][j] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][(i - a) % 4][j] = 1;
+                                            group[numberofgroups][(NumR + i - a) % NumR][j] = 1;
                                         }
                                         numberofgroups++;
                                     }
@@ -177,60 +175,60 @@ public class KarnaughMap {
                                 if (k == 0) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[i][(j + a) % 4] != 1 || map[(i + 1) % 4][(j + a) % 4] != 1) {
+                                        if (map[i][(j + a) % NumC] != 1 || map[(i + 1) % NumR][(j + a) % NumC] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][i][(j + a) % 4] = 1;
-                                            group[numberofgroups][(i + 1) % 4][(j + a) % 4] = 1;
+                                            group[numberofgroups][i][(j + a) % NumC] = 1;
+                                            group[numberofgroups][(i + 1) % NumR][(j + a) % NumC] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 1) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[i][(j + a) % 4] != 1 || map[(i - 1) % 4][(j + a) % 4] != 1) {
+                                        if (map[i][(j + a) % NumC] != 1 || map[(NumR +i - 1) % NumR][(j + a) % NumC] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][i][(j + a) % 4] = 1;
-                                            group[numberofgroups][(i - 1) % 4][(j + a) % 4] = 1;
+                                            group[numberofgroups][i][(j + a) % NumC] = 1;
+                                            group[numberofgroups][(NumR + i - 1) % NumR][(j + a) % NumC] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 2) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[(i + a) % 4][(j + 1) % 4] != 1 || map[(i + a) % 4][j] != 1) {
+                                        if (map[(i + a) % NumR][(j + 1) % NumC] != 1 || map[(i + a) % NumR][j] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][(i + a) % 4][(j + 1) % 4] = 1;
-                                            group[numberofgroups][(i + a) % 4][j] = 1;
+                                            group[numberofgroups][(i + a) % NumR][(j + 1) % NumC] = 1;
+                                            group[numberofgroups][(i + a) % NumR][j] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 3) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[(i + a) % 4][(j - 1) % 4] != 1 || map[(i + a) % 4][j] != 1) {
+                                        if (map[(i + a) % NumR][(NumC + j - 1) % NumC] != 1 || map[(i + a) % NumR][j] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][(i + a) % 4][(j - 1) % 4] = 1;
-                                            group[numberofgroups][(i + a) % 4][j] = 1;
+                                            group[numberofgroups][(i + a) % NumR][(NumC + j - 1) % NumC] = 1;
+                                            group[numberofgroups][(i + a) % NumR][j] = 1;
                                         }
                                         numberofgroups++;
                                     }
@@ -238,60 +236,60 @@ public class KarnaughMap {
                                 if (k == 4) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[i][(j - a) % 4] != 1 || map[(i + 1) % 4][(j - a) % 4] != 1) {
+                                        if (map[i][(NumC + j - a) % NumC] != 1 || map[(i + 1) % NumR][(NumC + j - a) % NumC] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][i][(j - a) % 4] = 1;
-                                            group[numberofgroups][(i + 1) % 4][(j - a) % 4] = 1;
+                                            group[numberofgroups][i][(NumC + j - a) % NumC] = 1;
+                                            group[numberofgroups][(i + 1) % NumR][(NumC + j - a) % NumC] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 5) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[i][(j - a) % 4] != 1 || map[(i - 1) % 4][(j + a) % 4] != 1) {
+                                        if (map[i][(NumC + j - a) % NumC] != 1 || map[(NumR + i - 1) % NumR][(j + a) % NumC] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][i][(j - a) % 4] = 1;
-                                            group[numberofgroups][(i - 1) % 4][(j - a) % 4] = 1;
+                                            group[numberofgroups][i][(NumC + j - a) % NumC] = 1;
+                                            group[numberofgroups][(NumR + i - 1) % NumR][(NumC + j - a) % NumC] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 6) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[(i - a) % 4][(j + 1) % 4] != 1 || map[(i - a) % 4][j] != 1) {
+                                        if (map[(NumR + i - a) % NumR][(j + 1) % NumC] != 1 || map[(NumR + i - a) % NumR][j] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][(i - a) % 4][(j + 1) % 4] = 1;
-                                            group[numberofgroups][(i - a) % 4][j] = 1;
+                                            group[numberofgroups][(NumR + i - a) % NumR][(j + 1) % NumC] = 1;
+                                            group[numberofgroups][(NumR + i - a) % NumR][j] = 1;
                                         }
                                         numberofgroups++;
                                     }
                                 } else if (k == 7) {
                                     flag = true;
                                     for (int a = 0; a < 4; a++) {
-                                        if (map[(i - a) % 4][(j - 1) % 4] != 1 || map[(i - a) % 4][j] != 1) {
+                                        if (map[(NumR + i - a) % NumR][(NumC + j - 1) % NumC] != 1 || map[(NumR + i - a) % NumR][j] != 1) {
                                             flag = false;
                                         }
                                     }
                                     if (flag) {
                                         group[numberofgroups][i][j] = 1;
                                         for (int a = 0; a < 4; a++) {
-                                            group[numberofgroups][(i - a) % 4][(j - 1) % 4] = 1;
-                                            group[numberofgroups][(i - a) % 4][j] = 1;
+                                            group[numberofgroups][(NumR + i - a) % NumR][(NumC + j - 1) % NumC] = 1;
+                                            group[numberofgroups][(NumR + i - a) % NumR][j] = 1;
                                         }
                                         numberofgroups++;
                                     }
