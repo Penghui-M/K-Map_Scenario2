@@ -65,34 +65,69 @@ public class UI {
     }
 
     public void kMap() {
-        // Tab
-        JTabbedPane tabs = new JTabbedPane();
-
-        JPanel tab_2d = new JPanel();
-        JPanel tab_3d = new JPanel();
-        JPanel tab_4d = new JPanel();
-
-        tabs.addTab("2D", tab_2d);
-        tabs.addTab("3D", tab_3d);
-        tabs.addTab("4D", tab_4d);
-
         // Title
         JLabel title = new JLabel("Karnaugh Map");
         title.setBounds(380, 0, 600, 50);
         title.setFont(titleF);
 
+        // 2D
+        JButton d2 = new JButton("2D");
+        d2.setFont(normalT);
+        d2.setBounds(200, 70, 200, 30);
+        d2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                twoDimension();
+            }
+        });
+
+        // 3D
+        JButton d3 = new JButton("3D");
+        d3.setFont(normalT);
+        d3.setBounds(400, 70, 200, 30);
+        d3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                threeDimension();
+            }
+        });
+
+        // 4D
+        JButton d4 = new JButton("4D");
+        d4.setFont(normalT);
+        d4.setBounds(600, 70, 200, 30);
+        d4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                fourDimension();
+            }
+        });
+
         // Back
         JButton back = new JButton ("BACK");
         back.setFont(normalT);
-        back.setBounds(350, 700, 300, 100);
+        back.setBounds(350, 800, 300, 50);
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                frame.remove(title); frame.remove(back);
+                frame.remove(title); frame.remove(back); frame.remove(d2); frame.remove(d3); frame.remove(d4); 
                 menu();
             }
-        });  
-        frame.add(title); frame.add(back); 
+        });
+
+        frame.add(title); frame.add(back); frame.add(d2); frame.add(d3); frame.add(d4);
+        frame.setVisible(true);
+    }
+
+    public void twoDimension() {
+        frame.setVisible(true);
+    }
+
+    public void threeDimension() {
+        frame.setVisible(true);
+    }
+
+    public void fourDimension() {
         frame.setVisible(true);
     }
 
