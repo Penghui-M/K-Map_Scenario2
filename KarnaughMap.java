@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class KarnaughMap {
@@ -53,6 +55,7 @@ public class KarnaughMap {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(i + 1) % NumR][j] = 1;
                                         numberofgroups++;
+                                        break;
                                     }
 
                                 } else if (k == 2) {
@@ -60,6 +63,7 @@ public class KarnaughMap {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][i][(NumC + j - 1) % NumC] = 1;
                                         numberofgroups++;
+                                        break;
                                     }
 
                                 } else {
@@ -67,6 +71,7 @@ public class KarnaughMap {
                                         group[numberofgroups][i][j] = 1;
                                         group[numberofgroups][(NumR + i - 1) % NumR][j] = 1;
                                         numberofgroups++;
+                                        break;
                                     }
                                 }
                             }
@@ -342,6 +347,7 @@ public class KarnaughMap {
 
 
         }
+        group = this.remove(group,numberofgroups);
         return group;
 
 
@@ -369,29 +375,168 @@ public class KarnaughMap {
         return count;
     }
 
+    private int[][][] remove(int[][][] group,int numberofgroup){
+        int[][][] newgroup = new int[numberofgroup][NumR][NumC];
+        for(int k = 0; k < numberofgroup; k++){
+            for(int i = 0; i < NumR; i++){
+                for(int j = 0; j < NumC; j++){
+                    newgroup[k][i][j] = group[k][i][j];
+                }
+            }
+        }
+        return newgroup;
+    }
+
+
+    public  String generateBooleanExpression(int[][][] group) {
+        List<Integer> cr = new ArrayList<>();
+        List<Integer> cc = new ArrayList<>();
+        StringBuilder expression = new StringBuilder();
+        if((NumC == 4) && (NumR ==4)) {
+            for(int k = 0; k < group.length; k++) {
+                cr.clear();
+                cc.clear();
+                for (int i = 0; i < NumR; i++) {
+                    for (int j = 0; j < NumC; j++) {
+                        if (group[k][i][j] == 1) {
+                            if (!(cr.contains(i))) {
+                                cr.add(i);
+                            }
+                            if (!(cc.contains(j))) {
+                                cc.add(j);
+                            }
+                        }
+                    }
+                }
+                StringBuilder term = new StringBuilder();
+                if ((cr.contains(0) || cr.contains(1)) && !(cr.contains(2) || cr.contains(3))) {
+                    term.append("A'");
+                }
+                if (!(cr.contains(0) || cr.contains(1)) && (cr.contains(2) || cr.contains(3))) {
+                    term.append("A");
+                }
+                if ((cr.contains(0) || cr.contains(3)) && !(cr.contains(1) || cr.contains(2))) {
+                    term.append("B'");
+                }
+                if (!(cr.contains(0) || cr.contains(3)) && (cr.contains(1) || cr.contains(2))) {
+                    term.append("B");
+                }
+                if ((cc.contains(0) || cc.contains(1)) && !(cc.contains(2) || cc.contains(3))) {
+                    term.append("C'");
+                }
+                if (!(cc.contains(0) || cc.contains(1)) && (cc.contains(2) || cc.contains(3))) {
+                    term.append("C");
+                }
+                if ((cc.contains(0) || cc.contains(3)) && !(cc.contains(1) || cc.contains(2))) {
+                    term.append("D'");
+                }
+                if (!(cc.contains(0) || cc.contains(3)) && (cc.contains(1) || cc.contains(2))) {
+                    term.append("D");
+                }
+                expression.append(term);
+                expression.append(" + ");
+            }
+        } else if ((NumR == 2) && (NumC == 4)) {
+            for(int k = 0; k < group.length; k++) {
+                cr.clear();
+                cc.clear();
+                for (int i = 0; i < NumR; i++) {
+                    for (int j = 0; j < NumC; j++) {
+                        if (group[k][i][j] == 1) {
+                            if (!(cr.contains(i))) {
+                                cr.add(i);
+                            }
+                            if (!(cc.contains(j))) {
+                                cc.add(j);
+                            }
+                        }
+                    }
+                }
+                StringBuilder term = new StringBuilder();
+                if ((cc.contains(0) || cc.contains(1)) && !(cc.contains(2) || cc.contains(3))) {
+                    term.append("A'");
+                }
+                if (!(cc.contains(0) || cc.contains(1)) && (cc.contains(2) || cc.contains(3))) {
+                    term.append("A");
+                }
+                if ((cc.contains(0) || cc.contains(3)) && !(cc.contains(1) || cc.contains(2))) {
+                    term.append("B'");
+                }
+                if (!(cc.contains(0) || cc.contains(3)) && (cc.contains(1) || cc.contains(2))) {
+                    term.append("B");
+                }
+                if (cr.contains(0) && !(cr.contains(1))) {
+                    term.append("C'");
+                }
+                if (cr.contains(1) && !(cr.contains(0))) {
+                    term.append("C");
+                }
+                expression.append(term);
+                expression.append(" + ");
+            }
+        } else if ((NumR == 2) && (NumC == 2)) {
+            for(int k = 0; k < group.length; k++) {
+                cr.clear();
+                cc.clear();
+                for (int i = 0; i < NumR; i++) {
+                    for (int j = 0; j < NumC; j++) {
+                        if (group[k][i][j] == 1) {
+                            if (!(cr.contains(i))) {
+                                cr.add(i);
+                            }
+                            if (!(cc.contains(j))) {
+                                cc.add(j);
+                            }
+                        }
+                    }
+                }
+                StringBuilder term = new StringBuilder();
+                if (cr.contains(0) && !(cr.contains(1))) {
+                    term.append("A'");
+                }
+                if (cr.contains(1) && !(cr.contains(0))) {
+                    term.append("A");
+                }
+                if (cc.contains(0) && !(cc.contains(1))) {
+                    term.append("B'");
+                }
+                if (cc.contains(1) && !(cc.contains(0))) {
+                    term.append("B");
+                }
+                expression.append(term);
+                expression.append(" + ");
+            }
+
+        }
+        expression.delete(expression.length() - 3, expression.length());
+        return expression.toString();
+
+    }
+
 
 
 
     public static void main(String[] args) {
         int [][][] groups;
         int [][] a = {
-                {1,0,0,0},
+                {0,1,0,0},
                 {0,1,1,0},
                 {0,1,1,0},
-                {0,1,1,0}
+                {0,0,0,0}
+
         };
 
         KarnaughMap map = new KarnaughMap(a);
         groups = map.Group();
-        for(int k = 0; k < 10; k++){
-            for(int i = 0; i<map.NumR; i++){
-                for(int j = 0; j<map.NumC; j++){
+        System.out.println(map.generateBooleanExpression(groups));
+        for(int k = 0; k < groups.length; k++){
+            for(int i = 0; i < map.NumR; i++){
+                for(int j = 0; j < map.NumC; j++){
                     System.out.print(groups[k][i][j]);
                 }
                 System.out.println();
             }
+            System.out.println();
         }
-
-
     }
 }
