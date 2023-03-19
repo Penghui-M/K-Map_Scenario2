@@ -27,6 +27,7 @@ public class UI {
     public int toInt(String text) {
         return Integer.parseInt(text);
     }
+
     // Buttons for the k-map
     /*
      * Table Combinations (Depending on the variables their size and position will vary)
@@ -52,6 +53,27 @@ public class UI {
     JButton r14 = new JButton("0");
     JButton r15 = new JButton("0");
     JButton r16 = new JButton("0");
+
+    // Labels for table
+    JLabel a = new JLabel("A");
+    JLabel b = new JLabel("B");
+    JLabel c = new JLabel("C");
+    JLabel ab = new JLabel("AB");
+    JLabel cd = new JLabel("CD");
+    JLabel t = new JLabel("1");
+    JLabel f = new JLabel("0");
+    JLabel ff = new JLabel("00");
+    JLabel ft = new JLabel("01");
+    JLabel tf = new JLabel("10");
+    JLabel tt = new JLabel("11");
+
+    // Clones
+    JLabel t1 = clone(t);
+    JLabel f1 = clone(f);
+    JLabel ff1 = clone(ff);
+    JLabel ft1 = clone(ft);
+    JLabel tf1 = clone(tf);
+    JLabel tt1 = clone(tt);
 
     // Simplify Button
     JButton simplify = new JButton("Simplify");
@@ -82,7 +104,6 @@ public class UI {
         r14.setFont(big);
         r15.setFont(big);
         r16.setFont(big);
-
 
         r1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -257,8 +278,16 @@ public class UI {
         frame.remove(r1); frame.remove(r2); frame.remove(r3); frame.remove(r4); frame.remove(r5);
         frame.remove(r6); frame.remove(r7); frame.remove(r8); frame.remove(r9); frame.remove(r10); 
         frame.remove(r11); frame.remove(r12); frame.remove(r13); frame.remove(r14); frame.remove(r15);
-        frame.remove(r16); frame.remove(simplify); frame.remove(expression);
-    }   
+        frame.remove(r16); frame.remove(simplify); frame.remove(expression); frame.remove(a); 
+        frame.remove(b); frame.remove(c); frame.remove(ab); frame.remove(cd); frame.remove(ff); 
+        frame.remove(tf); frame.remove(ft); frame.remove(tt); frame.remove(t); frame.remove(f);
+        frame.remove(f1); frame.remove(t1); frame.remove(tf1); frame.remove(ft1); frame.remove(tt1);
+        frame.remove(ff1);
+    } 
+
+    public JLabel clone(JLabel clone) {
+        return new JLabel(clone.getText());
+    }
 
 	public void run() {
         // setting up     
@@ -362,6 +391,22 @@ public class UI {
     }
 
     public void twoVariable() {
+        // Text Settings
+        a.setBounds(260, 180, 20, 20);
+        a.setFont(normalT);
+        b.setBounds(280, 160, 20, 20);
+        b.setFont(normalT);
+
+        t.setBounds(590, 180, 20, 20);
+        t.setFont(normalT);
+        f.setBounds(390, 180, 20, 20);
+        f.setFont(normalT);
+        
+        t1.setBounds(280, 290, 20, 20);
+        t1.setFont(normalT);
+        f1.setBounds(280, 490, 20, 20);
+        f1.setFont(normalT);
+
         // Bounds
         r1.setBounds(300, 200, 200, 200);
         r2.setBounds(500, 200, 200, 200);
@@ -383,10 +428,31 @@ public class UI {
         });
 
         frame.add(r1); frame.add(r2); frame.add(r3); frame.add(r4); frame.add(simplify); frame.add(expression);
+        frame.add(a); frame.add(b); frame.add(t); frame.add(f); frame.add(t1); frame.add(f1);
         frame.setVisible(true);
     }
 
     public void threeVariable() {
+        // Text Settings
+        ab.setBounds(280, 160, 40, 20);
+        ab.setFont(normalT);
+        c.setBounds(260, 180, 20, 20);
+        c.setFont(normalT);
+
+        ff.setBounds(340, 180, 40, 20);
+        ff.setFont(normalT);
+        ft.setBounds(440, 180, 40, 20);
+        ft.setFont(normalT);
+        tt.setBounds(540, 180, 40, 20);
+        tt.setFont(normalT);
+        tf.setBounds(640, 180, 40, 20);
+        tf.setFont(normalT);
+        t.setBounds(280, 240, 20, 20);
+        t.setFont(normalT);
+        f.setBounds(280, 340, 20, 20);
+        f.setFont(normalT);
+
+        // Bounds
         r1.setBounds(300, 200, 100, 100);
         r2.setBounds(400, 200, 100, 100);
         r3.setBounds(500, 200, 100, 100);
@@ -413,10 +479,39 @@ public class UI {
 
         frame.add(r1); frame.add(r2); frame.add(r3); frame.add(r4); frame.add(r5); frame.add(r6); 
         frame.add(r7); frame.add(r8); frame.add(simplify); frame.add(expression);
+        frame.add(ab); frame.add(c); frame.add(ff); frame.add(ft); frame.add(tt); frame.add(tf); 
+        frame.add(t); frame.add(f);
         frame.setVisible(true);
     }
 
     public void fourVariable() {
+        // Text Settings
+        ab.setBounds(250, 180, 40, 20);
+        ab.setFont(normalT);
+        cd.setBounds(290, 160, 40, 20);
+        cd.setFont(normalT);
+
+        // Horizontal
+        ff.setBounds(340, 180, 40, 20);
+        ff.setFont(normalT);
+        ft.setBounds(440, 180, 40, 20);
+        ft.setFont(normalT);
+        tt.setBounds(540, 180, 40, 20);
+        tt.setFont(normalT);
+        tf.setBounds(640, 180, 40, 20);
+        tf.setFont(normalT);
+        
+        // Vertical
+        ff1.setBounds(260, 240, 40, 20);
+        ff1.setFont(normalT);
+        ft1.setBounds(260, 340, 40, 20);
+        ft1.setFont(normalT);
+        tt1.setBounds(260, 440, 40, 20);
+        tt1.setFont(normalT);
+        tf1.setBounds(260, 540, 40, 20);
+        tf1.setFont(normalT);
+
+        // Bounds
         r1.setBounds(300, 200, 100, 100);
         r2.setBounds(400, 200, 100, 100);
         r3.setBounds(500, 200, 100, 100);
@@ -452,7 +547,9 @@ public class UI {
         frame.add(r1); frame.add(r2); frame.add(r3); frame.add(r4); frame.add(r5); 
         frame.add(r6); frame.add(r7); frame.add(r8); frame.add(r9); frame.add(r10);
         frame.add(r11); frame.add(r12); frame.add(r13); frame.add(r14); frame.add(r15);
-        frame.add(r16); frame.add(simplify); frame.add(expression);
+        frame.add(r16); frame.add(simplify); frame.add(expression); frame.add(ab); frame.add(cd);
+        frame.add(ff); frame.add(ft); frame.add(tt); frame.add(tf); frame.add(ff1); frame.add(ft1);
+        frame.add(tt1); frame.add(tf1);
         frame.setVisible(true);
     }
 }
