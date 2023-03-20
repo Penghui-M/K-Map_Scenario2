@@ -1,28 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+import java.util.*;
 
-/* Documentation:
- * JFrame <name> = new Jframe(<name>)     -- Initializes a window
-    * .setSize(<width>, <height>);
-    * .setLayout(<read documentation>);
-    * .add(<Items>);      -- add items such as labels, textfields, buttons...
- * JLabel <name> = new JLabel(<Text as String>);    -- Initializes a label
-    * .setBounds(<x>, <y>, <width>, <height>);
-
- * JButton <name> = new JButton(<button label>);
-    * .setBounds(<x>, <y>, <width>, <height>);
-    * addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                <Action performed when button pressed>
-            }
- */
 
 public class UI {
     JFrame frame = new JFrame("K-Map");
     Font titleF = new Font("serif", Font.BOLD, 36);
     Font normalT = new Font("serif", Font.BOLD, 20);
     Font big = new Font("serif", Font.BOLD, 30);
+    Question bank = new Question();
+    Random rd = new Random();
+    static int generatedNum;
+
     
     public int toInt(String text) {
         return Integer.parseInt(text);
@@ -290,7 +281,7 @@ public class UI {
     }
 
 	public void run() {
-        // setting up     
+        // setting up
         frame.setSize(1000, 1000);
         frame.setLayout(null);
         frame.setVisible(true);
@@ -300,34 +291,53 @@ public class UI {
         menu();
 	}
 
+
+
     public void menu() {
-        // Title
+        // UI Elements
         JLabel title = new JLabel("Karnaugh Map for COMP0003");
+        JButton exit = new JButton ("EXIT");
+        JButton kmap = new JButton ("KARNAUGH MAP");
+        JButton exercises = new JButton ("EXERCISES");
+
+        // Title
         title.setBounds(250, 0, 600, 50);
         title.setFont(titleF);
 
+
         // Exit
-        JButton exit = new JButton ("EXIT");
         exit.setFont(normalT);
-        exit.setBounds(350, 500, 300, 100);
+        exit.setBounds(350, 700, 300, 100);
         exit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                bank.save();
                 System.exit(1);
             }
         });
 
         // K-map
-        JButton kmap = new JButton ("KARNAUGH MAP");
         kmap.setFont(normalT);
         kmap.setBounds(350, 300, 300, 100);
         kmap.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                frame.remove(title); frame.remove(exit); frame.remove(kmap);
+                frame.remove(title); frame.remove(exit); frame.remove(kmap); frame.remove(exercises);
                 kMap();
             }
         });
-        frame.add(exit); frame.add(kmap); frame.add(title);    
+
+        // Exercises
+        exercises.setFont(normalT);
+        exercises.setBounds(350, 500, 300, 100);
+        exercises.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(title); frame.remove(exit); frame.remove(kmap); frame.remove(exercises);
+                exercises();
+            }
+        });
+
+        frame.add(exit); frame.add(kmap); frame.add(title); frame.add(exercises); 
         frame.setVisible(true);
     }
 
@@ -550,6 +560,263 @@ public class UI {
         frame.add(r16); frame.add(simplify); frame.add(expression); frame.add(ab); frame.add(cd);
         frame.add(ff); frame.add(ft); frame.add(tt); frame.add(tf); frame.add(ff1); frame.add(ft1);
         frame.add(tt1); frame.add(tf1);
+        frame.setVisible(true);
+    }
+
+    public void exercises() {
+        JLabel title = new JLabel("EXERCISES");
+        JButton back = new JButton ("BACK");
+        JButton questions = new JButton("QUESTIONS");
+        JButton edit = new JButton("EDIT");
+
+        // Title
+        title.setFont(titleF);
+        title.setBounds(400, 50, 400, 50);
+
+        // Back Button
+        back.setFont(normalT);
+        back.setBounds(350, 800, 300, 50);
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(title); frame.remove(back); frame.remove(questions); frame.remove(edit);
+                menu();
+            }
+        });
+
+        // Questions Button
+        questions.setFont(normalT);
+        questions.setBounds(350, 300, 300, 100);
+        questions.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(title); frame.remove(back); frame.remove(questions); frame.remove(edit);
+                questions();
+            }
+        });
+
+        // Edit Button
+        edit.setFont(normalT);
+        edit.setBounds(350, 500, 300, 100);
+        edit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(title); frame.remove(back); frame.remove(questions); frame.remove(edit);
+                edit();
+            }
+        });
+
+
+        frame.add(title); frame.add(back); frame.add(questions); frame.add(edit);
+        frame.setVisible(true);
+    }
+
+    public void questions() {
+        JLabel title = new JLabel("QUESTIONS");
+        JButton back = new JButton ("BACK");
+        JButton generate = new JButton("GENERATE QUESTION");
+        JButton submit = new JButton("SUBMIT");
+
+        List<String> questions = bank.getQuestions();
+        List<String> answers = bank.getAnswers();
+        generatedNum = rd.nextInt(questions.size());
+
+        // Question part
+        JLabel question = new JLabel("Question: " + questions.get(generatedNum));
+        JLabel answerField = new JLabel("");
+        JButton A = new JButton("A");
+        JButton B = new JButton("B");
+        JButton not = new JButton("¬");
+        JButton and = new JButton("AND");
+        JButton or = new JButton("OR");
+        JButton del = new JButton("DEL");
+
+        // Title
+        title.setFont(titleF);
+        title.setBounds(400, 50, 400, 50);
+
+        // Back Button
+        back.setFont(normalT);
+        back.setBounds(350, 800, 300, 50);
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(title); frame.remove(back); frame.remove(question); frame.remove(answerField);
+                frame.remove(A); frame.remove(B); frame.remove(not); frame.remove(and); frame.remove(or);
+                frame.remove(generate); frame.remove(submit); frame.remove(del);
+                exercises();
+            }
+        });
+
+        // Question UI
+        question.setFont(normalT);
+        question.setBounds(300, 150, 400, 50);
+
+        answerField.setFont(normalT);
+        answerField.setBounds(300, 220, 400, 50);
+
+        A.setBounds(150, 300, 50, 50);
+        A.setFont(normalT);
+        A.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                answerField.setText(answerField.getText() + "A");
+            }
+        });
+
+        B.setBounds(250, 300, 50, 50);
+        B.setFont(normalT);
+        B.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                answerField.setText(answerField.getText() + "B");
+            }
+        });
+
+        not.setBounds(350, 300, 50, 50);
+        not.setFont(normalT);
+        not.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                answerField.setText(answerField.getText() + "¬");
+            }
+        });
+
+        and.setBounds(450, 300, 100, 50);
+        and.setFont(normalT);
+        and.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                answerField.setText(answerField.getText() + "∧");
+            }
+        });
+
+        or.setBounds(600, 300, 100, 50);
+        or.setFont(normalT);
+        or.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                answerField.setText(answerField.getText() + "∨");
+            }
+        });
+
+        del.setBounds(750, 300, 100, 50);
+        del.setFont(normalT);
+        del.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String temp = answerField.getText();
+                if (temp.length() > 0) {
+                    answerField.setText(temp.substring(0, temp.length() - 1));
+                }
+            }
+        });
+
+        generate.setBounds(700, 150, 200, 50);
+        generate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                generatedNum = rd.nextInt(questions.size());
+                question.setText(questions.get(generatedNum));
+                answerField.setText("");
+            }
+        });
+
+        submit.setBounds(300, 400, 400, 100);
+        submit.setFont(normalT);
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (answerField.getText().equals(answers.get(generatedNum))) {
+                    JOptionPane.showMessageDialog(null, "Correct!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect!");
+                }
+            }
+        });
+
+        frame.add(title); frame.add(back); frame.add(question); frame.add(answerField); 
+        frame.add(A); frame.add(B); frame.add(not); frame.add(and); frame.add(or);
+        frame.add(generate); frame.add(submit); frame.add(del);
+        frame.setVisible(true);
+    }
+
+    public void edit() {
+        String[] questions = bank.getQuestions().toArray(new String[0]);
+        String[] answers = bank.getAnswers().toArray(new String[0]);
+
+        // UI
+        JLabel title = new JLabel("EDIT");
+        JButton back = new JButton ("BACK");
+        JButton add = new JButton("ADD");
+        JButton save = new JButton("SAVE");
+        JButton delete = new JButton("DEL");
+        JLabel question = new JLabel("Question");
+        JLabel answer = new JLabel("Answer");
+
+        // Question part
+        question.setFont(normalT);
+        question.setBounds(200, 150, 200, 50);
+        JList q = new JList(questions);
+        q.setBounds(200, 200, 200, 500);
+        JScrollPane scroll = new JScrollPane(q);
+
+        // Answer part
+        answer.setFont(normalT);
+        answer.setBounds(600, 150, 200, 50);
+        JList a = new JList(answers);
+        a.setBounds(600, 200, 200, 500);
+        JScrollPane scroll2 = new JScrollPane(a);
+
+        // Add & Delete
+        add.setFont(normalT);
+        add.setBounds(450, 400, 100, 50);
+        add.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String question = JOptionPane.showInputDialog("Enter question (use A, B, ¬, ∧, ∨)");
+                String answer = JOptionPane.showInputDialog("Enter answer  (use A, B, ¬, ∧, ∨)");
+                bank.addQuestion(question, answer);
+                String[] questions = bank.getQuestions().toArray(new String[0]);
+                String[] answers = bank.getAnswers().toArray(new String[0]);
+                q.setListData(questions);
+                a.setListData(answers);
+            }
+        });
+
+
+        delete.setFont(normalT);
+        delete.setBounds(450, 500, 100, 50);
+        delete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                bank.removeQuestion(q.getSelectedIndex());
+                String[] questions = bank.getQuestions().toArray(new String[0]);
+                String[] answers = bank.getAnswers().toArray(new String[0]);
+                q.setListData(questions);
+                a.setListData(answers);
+            }
+        });
+
+        save.setFont(normalT);
+        save.setBounds(450, 600, 100, 50);
+        save.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                bank.save();
+                JOptionPane.showMessageDialog(null, "Saved!");
+            }
+        });
+
+        // Title
+        title.setFont(titleF);
+        title.setBounds(450, 50, 200, 50);
+
+        // Back Button
+        back.setFont(normalT);
+        back.setBounds(350, 800, 300, 50);
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(title); frame.remove(back); frame.remove(add); frame.remove(delete);
+                frame.remove(question); frame.remove(answer); frame.remove(q); frame.remove(a);
+                frame.remove(scroll); frame.remove(scroll2); frame.remove(save);
+                exercises();
+            }
+        });
+
+        frame.add(title); frame.add(back); frame.add(add); frame.add(delete); frame.add(save);
+        frame.add(question); frame.add(answer); frame.add(q); frame.add(a); frame.add(scroll); 
+        frame.add(scroll2); 
         frame.setVisible(true);
     }
 }
